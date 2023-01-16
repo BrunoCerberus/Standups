@@ -11,6 +11,8 @@
 		155BD4FA2974EE40007AA173 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155BD4F92974EE40007AA173 /* Assets.xcassets */; };
 		155BD5082974EE40007AA173 /* StandupsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5072974EE40007AA173 /* StandupsTests.swift */; };
 		155BD5212974F042007AA173 /* StandupsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5202974F042007AA173 /* StandupsList.swift */; };
+		155BD5232974F1D7007AA173 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5222974F1D7007AA173 /* Models.swift */; };
+		155BD5262974F2C6007AA173 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 155BD5252974F2C6007AA173 /* Tagged */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +32,7 @@
 		155BD5032974EE40007AA173 /* StandupsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StandupsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		155BD5072974EE40007AA173 /* StandupsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandupsTests.swift; sourceTree = "<group>"; };
 		155BD5202974F042007AA173 /* StandupsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandupsList.swift; sourceTree = "<group>"; };
+		155BD5222974F1D7007AA173 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				155BD5262974F2C6007AA173 /* Tagged in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +77,7 @@
 			children = (
 				155BD4F52974EE3F007AA173 /* StandupsApp.swift */,
 				155BD5202974F042007AA173 /* StandupsList.swift */,
+				155BD5222974F1D7007AA173 /* Models.swift */,
 				155BD4F92974EE40007AA173 /* Assets.xcassets */,
 			);
 			path = Standups;
@@ -102,6 +107,9 @@
 			dependencies = (
 			);
 			name = Standups;
+			packageProductDependencies = (
+				155BD5252974F2C6007AA173 /* Tagged */,
+			);
 			productName = Standups;
 			productReference = 155BD4F22974EE3F007AA173 /* Standups.app */;
 			productType = "com.apple.product-type.application";
@@ -152,6 +160,9 @@
 				Base,
 			);
 			mainGroup = 155BD4E92974EE3F007AA173;
+			packageReferences = (
+				155BD5242974F2C6007AA173 /* XCRemoteSwiftPackageReference "swift-tagged" */,
+			);
 			productRefGroup = 155BD4F32974EE3F007AA173 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -185,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				155BD5232974F1D7007AA173 /* Models.swift in Sources */,
 				155BD4F62974EE3F007AA173 /* StandupsApp.swift in Sources */,
 				155BD5212974F042007AA173 /* StandupsList.swift in Sources */,
 			);
@@ -471,6 +483,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		155BD5242974F2C6007AA173 /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-tagged.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		155BD5252974F2C6007AA173 /* Tagged */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 155BD5242974F2C6007AA173 /* XCRemoteSwiftPackageReference "swift-tagged" */;
+			productName = Tagged;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 155BD4EA2974EE3F007AA173 /* Project object */;
 }

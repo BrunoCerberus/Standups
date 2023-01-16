@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+final class StandupsListModel: ObservableObject {
+    
+}
+
 struct StandupsList: View {
   var body: some View {
     NavigationStack {
