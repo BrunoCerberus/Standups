@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		155BD4F62974EE3F007AA173 /* StandupsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD4F52974EE3F007AA173 /* StandupsApp.swift */; };
-		155BD4F82974EE3F007AA173 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD4F72974EE3F007AA173 /* ContentView.swift */; };
 		155BD4FA2974EE40007AA173 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155BD4F92974EE40007AA173 /* Assets.xcassets */; };
-		155BD4FE2974EE40007AA173 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155BD4FD2974EE40007AA173 /* Preview Assets.xcassets */; };
 		155BD5082974EE40007AA173 /* StandupsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5072974EE40007AA173 /* StandupsTests.swift */; };
+		155BD5212974F042007AA173 /* StandupsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5202974F042007AA173 /* StandupsList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,12 +26,10 @@
 /* Begin PBXFileReference section */
 		155BD4F22974EE3F007AA173 /* Standups.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Standups.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		155BD4F52974EE3F007AA173 /* StandupsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandupsApp.swift; sourceTree = "<group>"; };
-		155BD4F72974EE3F007AA173 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		155BD4F92974EE40007AA173 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		155BD4FB2974EE40007AA173 /* Standups.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Standups.entitlements; sourceTree = "<group>"; };
-		155BD4FD2974EE40007AA173 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		155BD5032974EE40007AA173 /* StandupsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StandupsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		155BD5072974EE40007AA173 /* StandupsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandupsTests.swift; sourceTree = "<group>"; };
+		155BD5202974F042007AA173 /* StandupsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandupsList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,20 +72,10 @@
 			isa = PBXGroup;
 			children = (
 				155BD4F52974EE3F007AA173 /* StandupsApp.swift */,
-				155BD4F72974EE3F007AA173 /* ContentView.swift */,
+				155BD5202974F042007AA173 /* StandupsList.swift */,
 				155BD4F92974EE40007AA173 /* Assets.xcassets */,
-				155BD4FB2974EE40007AA173 /* Standups.entitlements */,
-				155BD4FC2974EE40007AA173 /* Preview Content */,
 			);
 			path = Standups;
-			sourceTree = "<group>";
-		};
-		155BD4FC2974EE40007AA173 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				155BD4FD2974EE40007AA173 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		155BD5062974EE40007AA173 /* StandupsTests */ = {
@@ -180,7 +167,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				155BD4FE2974EE40007AA173 /* Preview Assets.xcassets in Resources */,
 				155BD4FA2974EE40007AA173 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,8 +185,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				155BD4F82974EE3F007AA173 /* ContentView.swift in Sources */,
 				155BD4F62974EE3F007AA173 /* StandupsApp.swift in Sources */,
+				155BD5212974F042007AA173 /* StandupsList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,10 +323,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Standups/Standups.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Standups/Preview Content\"";
 				DEVELOPMENT_TEAM = RDTR6557FX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -376,10 +361,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Standups/Standups.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Standups/Preview Content\"";
 				DEVELOPMENT_TEAM = RDTR6557FX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
