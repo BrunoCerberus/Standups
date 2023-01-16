@@ -13,6 +13,7 @@
 		155BD5212974F042007AA173 /* StandupsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5202974F042007AA173 /* StandupsList.swift */; };
 		155BD5232974F1D7007AA173 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5222974F1D7007AA173 /* Models.swift */; };
 		155BD5262974F2C6007AA173 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 155BD5252974F2C6007AA173 /* Tagged */; };
+		155BD52A2974FD43007AA173 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 155BD5292974FD43007AA173 /* SwiftUINavigation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				155BD52A2974FD43007AA173 /* SwiftUINavigation in Frameworks */,
 				155BD5262974F2C6007AA173 /* Tagged in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,6 +113,7 @@
 			name = Standups;
 			packageProductDependencies = (
 				155BD5252974F2C6007AA173 /* Tagged */,
+				155BD5292974FD43007AA173 /* SwiftUINavigation */,
 			);
 			productName = Standups;
 			productReference = 155BD4F22974EE3F007AA173 /* Standups.app */;
@@ -164,6 +167,7 @@
 			mainGroup = 155BD4E92974EE3F007AA173;
 			packageReferences = (
 				155BD5242974F2C6007AA173 /* XCRemoteSwiftPackageReference "swift-tagged" */,
+				155BD5282974FD43007AA173 /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
 			);
 			productRefGroup = 155BD4F32974EE3F007AA173 /* Products */;
 			projectDirPath = "";
@@ -497,6 +501,14 @@
 				minimumVersion = 0.9.0;
 			};
 		};
+		155BD5282974FD43007AA173 /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swiftui-navigation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -504,6 +516,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 155BD5242974F2C6007AA173 /* XCRemoteSwiftPackageReference "swift-tagged" */;
 			productName = Tagged;
+		};
+		155BD5292974FD43007AA173 /* SwiftUINavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 155BD5282974FD43007AA173 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
+			productName = SwiftUINavigation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
