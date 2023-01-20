@@ -9,12 +9,12 @@ import SwiftUINavigation
 import SwiftUI
 
 final class StandupsListModel: ObservableObject {
+    enum Destination {
+        case add(EditStandupModel)
+    }
+    
     @Published var destination: Destination?
     @Published var standups: [Standup]
-    
-    enum Destination {
-        case add(Standup)
-    }
     
     init(
         destination: Destination? = nil,
@@ -25,7 +25,30 @@ final class StandupsListModel: ObservableObject {
     }
     
     func addStandupButtonTapped() {
-        self.destination = .add(Standup(id: Standup.ID(UUID())))
+        self.destination = .add(EditStandupModel(standup: Standup(id: Standup.ID(UUID()))))
+    }
+    
+    func dismissAddStandupButtonTapped() {
+        self.destination = nil
+    }
+    
+    func confirmAddStandupButtonTapped() {
+        defer { self.destination = nil }
+        
+        guard case let .add(editStandupModel) = self.destination else { return }
+        var standup = editStandupModel.standup
+        standup.attendees.removeAll { attendee in
+            attendee.name.allSatisfy(\.isWhitespace)
+        }
+        if standup.attendees.isEmpty {
+            standup.attendees.append(
+                Attendee(
+                    id: Attendee.ID(UUID()),
+                    name: ""
+                )
+            )
+        }
+        self.standups.append(standup)
     }
 }
 
@@ -46,6 +69,27 @@ struct StandupsList: View {
                 }
             }
             .navigationTitle("Daily Standups")
+            .sheet(
+                unwrapping: self.$model.destination,
+                case: /StandupsListModel.Destination.add
+            ) { $model in
+                NavigationStack {
+                    EditStandupView(model: model)
+                        .navigationTitle("New standup")
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button(action: { self.model.dismissAddStandupButtonTapped() }) {
+                                    Text("Dismiss")
+                                }
+                            }
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button(action: { self.model.confirmAddStandupButtonTapped() }) {
+                                    Text("Add")
+                                }
+                            }
+                        }
+                }
+            }
         }
     }
 }

@@ -14,6 +14,8 @@
 		155BD5232974F1D7007AA173 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5222974F1D7007AA173 /* Models.swift */; };
 		155BD5262974F2C6007AA173 /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 155BD5252974F2C6007AA173 /* Tagged */; };
 		155BD52A2974FD43007AA173 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 155BD5292974FD43007AA173 /* SwiftUINavigation */; };
+		155BD52C2974FF92007AA173 /* EditStandupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD52B2974FF92007AA173 /* EditStandupView.swift */; };
+		15DF14F1297A0E3C009E3436 /* EditStandupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF14F0297A0E3C009E3436 /* EditStandupTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 		155BD5202974F042007AA173 /* StandupsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandupsList.swift; sourceTree = "<group>"; };
 		155BD5222974F1D7007AA173 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		155BD5272974F84A007AA173 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		155BD52B2974FF92007AA173 /* EditStandupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStandupView.swift; sourceTree = "<group>"; };
+		15DF14F0297A0E3C009E3436 /* EditStandupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStandupTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 				155BD4F52974EE3F007AA173 /* StandupsApp.swift */,
 				155BD5202974F042007AA173 /* StandupsList.swift */,
 				155BD5222974F1D7007AA173 /* Models.swift */,
+				155BD52B2974FF92007AA173 /* EditStandupView.swift */,
 				155BD4F92974EE40007AA173 /* Assets.xcassets */,
 			);
 			path = Standups;
@@ -91,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				155BD5072974EE40007AA173 /* StandupsTests.swift */,
+				15DF14F0297A0E3C009E3436 /* EditStandupTests.swift */,
 			);
 			path = StandupsTests;
 			sourceTree = "<group>";
@@ -202,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				155BD52C2974FF92007AA173 /* EditStandupView.swift in Sources */,
 				155BD5232974F1D7007AA173 /* Models.swift in Sources */,
 				155BD4F62974EE3F007AA173 /* StandupsApp.swift in Sources */,
 				155BD5212974F042007AA173 /* StandupsList.swift in Sources */,
@@ -213,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				155BD5082974EE40007AA173 /* StandupsTests.swift in Sources */,
+				15DF14F1297A0E3C009E3436 /* EditStandupTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
