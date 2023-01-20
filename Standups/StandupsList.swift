@@ -10,7 +10,13 @@ import SwiftUI
 
 final class StandupsListModel: ObservableObject {
     enum Destination {
+        enum Specific {
+            case screenOne
+            case screenTwo
+        }
         case add(EditStandupModel)
+        case detail(StandupDetailModel)
+        case navigate(Specific)
     }
     
     @Published var destination: Destination?
@@ -50,6 +56,12 @@ final class StandupsListModel: ObservableObject {
         }
         self.standups.append(standup)
     }
+    
+    func standupTapped(standup: Standup) {
+//        let model = StandupDetailModel(standup: standup)
+//        self.destination = .detail(model)
+        self.destination = .navigate(.screenTwo)
+    }
 }
 
 struct StandupsList: View {
@@ -59,8 +71,10 @@ struct StandupsList: View {
         NavigationStack {
             List {
                 ForEach(self.model.standups) { standup in
-                    CardView(standup: standup)
-                        .listRowBackground(standup.theme.mainColor)
+                    Button(action: { self.model.standupTapped(standup: standup) }) {
+                        CardView(standup: standup)
+                    }
+                    .listRowBackground(standup.theme.mainColor)
                 }
             }
             .toolbar {
@@ -90,6 +104,28 @@ struct StandupsList: View {
                         }
                 }
             }
+            .navigationDestination(
+                unwrapping: self.$model.destination,
+                case: /StandupsListModel.Destination.detail
+            ) { $model in
+                StandupDetailView(model: model)
+            }
+            .navigationDestination(
+                unwrapping: self.$model.destination,
+                case: /StandupsListModel.Destination.navigate
+            ) { route in
+                navigationHandler(route: route.wrappedValue)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func navigationHandler(route: StandupsListModel.Destination.Specific) -> some View {
+        switch route {
+        case .screenOne:
+            StandupDetailView(model: .init(standup: .mock))
+        case .screenTwo:
+            StandupDetailView(model: .init(standup: .mock))
         }
     }
 }
