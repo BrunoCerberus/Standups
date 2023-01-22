@@ -135,6 +135,10 @@ struct StandupsList_Previews: PreviewProvider {
     static var previews: some View {
         StandupsList(
             model: StandupsListModel(
+                destination: .add(EditStandupModel(
+                    focus: .attendee(Standup.mock.attendees[3].id),
+                    standup: .mock
+                )),
                 standups: [
                     .mock,
                 ]

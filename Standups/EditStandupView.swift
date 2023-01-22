@@ -22,7 +22,7 @@ final class EditStandupModel: ObservableObject {
                 Attendee(id: Attendee.ID(UUID()), name: "")
             )
         }
-        self.focus = .title
+        self.focus = focus
     }
     
     func deleteAttendees(atOffsets indices: IndexSet) {

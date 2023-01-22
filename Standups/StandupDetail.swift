@@ -6,12 +6,30 @@
 //
 
 import SwiftUI
+import SwiftUINavigation
 
 final class StandupDetailModel: ObservableObject {
+    enum Destination {
+        case meeting(Meeting)
+    }
+    
+    @Published var destination: Destination?
     @Published var standup: Standup
     
-    init(standup: Standup) {
+    init(
+        destination: Destination? = nil,
+        standup: Standup
+    ) {
+        self.destination = destination
         self.standup = standup
+    }
+    
+    func deleteMeetings(atOffsets indices: IndexSet) {
+        self.standup.meetings.remove(atOffsets: indices)
+    }
+    
+    func meetingTapped(_ meeting: Meeting) {
+        destination = .meeting(meeting)
     }
 }
 
@@ -54,6 +72,7 @@ struct StandupDetailView: View {
                 Section {
                     ForEach(self.model.standup.meetings) { meeting in
                         Button {
+                            self.model.meetingTapped(meeting)
                         } label: {
                             HStack {
                                 Image(systemName: "calendar")
@@ -63,6 +82,7 @@ struct StandupDetailView: View {
                         }
                     }
                     .onDelete { indices in
+                        self.model.deleteMeetings(atOffsets: indices)
                     }
                 } header: {
                     Text("Past meetings")
@@ -89,6 +109,16 @@ struct StandupDetailView: View {
             Button("Edit") {
             }
         }
+        .navigationDestination(
+            // another way to define a Binding<T>
+            unwrapping: Binding<StandupDetailModel.Destination?>.init(
+                get: { self.model.destination },
+                set: { self.model.destination = $0 }
+            ),
+            case: /StandupDetailModel.Destination.meeting
+        ) { $meeting in
+            MeetingView(meeting: meeting, standup: self.model.standup)
+        }
     }
 }
 
@@ -99,4 +129,31 @@ struct StandupDetail_Previews: PreviewProvider {
         }
         .preferredColorScheme(.dark)
     }
+}
+
+struct MeetingView: View {
+  let meeting: Meeting
+  let standup: Standup
+
+  var body: some View {
+    ScrollView {
+      VStack(alignment: .leading) {
+        Divider()
+          .padding(.bottom)
+        Text("Attendees")
+          .font(.headline)
+        ForEach(self.standup.attendees) { attendee in
+          Text(attendee.name)
+        }
+        Text("Transcript")
+          .font(.headline)
+          .padding(.top)
+        Text(self.meeting.transcript)
+      }
+    }
+    .navigationTitle(
+      Text(self.meeting.date, style: .date)
+    )
+    .padding()
+  }
 }
