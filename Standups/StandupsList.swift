@@ -10,13 +10,13 @@ import SwiftUI
 
 final class StandupsListModel: ObservableObject {
     enum Destination {
-        enum Specific {
-            case screenOne
-            case screenTwo
-        }
+//        enum Specific {
+//            case screenOne
+//            case screenTwo
+//        }
         case add(EditStandupModel)
         case detail(StandupDetailModel)
-        case navigate(Specific)
+//        case navigate(Specific)
     }
     
     @Published var destination: Destination?
@@ -58,9 +58,9 @@ final class StandupsListModel: ObservableObject {
     }
     
     func standupTapped(standup: Standup) {
-//        let model = StandupDetailModel(standup: standup)
-//        self.destination = .detail(model)
-        self.destination = .navigate(.screenTwo)
+        let model = StandupDetailModel(standup: standup)
+        self.destination = .detail(model)
+//        self.destination = .navigate(.screenTwo)
     }
 }
 
@@ -112,22 +112,23 @@ struct StandupsList: View {
             }
             .navigationDestination(
                 unwrapping: self.$model.destination,
-                case: /StandupsListModel.Destination.navigate
+                case: /StandupsListModel.Destination.detail
             ) { route in
-                navigationHandler(route: route.wrappedValue)
+//                navigationHandler(route: route.wrappedValue)
+                StandupDetailView(model: .init(standup: .mock))
             }
         }
     }
     
-    @ViewBuilder
-    private func navigationHandler(route: StandupsListModel.Destination.Specific) -> some View {
-        switch route {
-        case .screenOne:
-            StandupDetailView(model: .init(standup: .mock))
-        case .screenTwo:
-            StandupDetailView(model: .init(standup: .mock))
-        }
-    }
+//    @ViewBuilder
+//    private func navigationHandler(route: StandupsListModel.Destination.Specific) -> some View {
+//        switch route {
+//        case .screenOne:
+//            StandupDetailView(model: .init(standup: .mock))
+//        case .screenTwo:
+//            StandupDetailView(model: .init(standup: .mock))
+//        }
+//    }
 }
 
 struct StandupsList_Previews: PreviewProvider {
