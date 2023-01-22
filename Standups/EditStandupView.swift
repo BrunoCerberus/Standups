@@ -96,6 +96,7 @@ struct EditStandupView: View {
             }
         }
         .bind($model.focus, to: $focus)
+        .preferredColorScheme(.dark)
     }
 }
 

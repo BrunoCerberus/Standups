@@ -34,6 +34,7 @@ final class StandupDetailModel: ObservableObject {
 }
 
 struct StandupDetailView: View {
+    
     @ObservedObject var model: StandupDetailModel
     
     var body: some View {
@@ -109,15 +110,18 @@ struct StandupDetailView: View {
             Button("Edit") {
             }
         }
-        .navigationDestination(
+        .sheet(
             // another way to define a Binding<T>
-            unwrapping: Binding<StandupDetailModel.Destination?>.init(
+            unwrapping: Binding<StandupDetailModel.Destination?>(
                 get: { self.model.destination },
                 set: { self.model.destination = $0 }
             ),
             case: /StandupDetailModel.Destination.meeting
         ) { $meeting in
-            MeetingView(meeting: meeting, standup: self.model.standup)
+            MeetingView(
+                meeting: meeting,
+                standup: self.model.standup
+            )
         }
     }
 }
@@ -125,35 +129,40 @@ struct StandupDetailView: View {
 struct StandupDetail_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            StandupDetailView(model: StandupDetailModel(standup: .mock))
+            StandupDetailView(
+                model: StandupDetailModel(
+                    standup: .mock
+                )
+            )
         }
         .preferredColorScheme(.dark)
     }
 }
 
 struct MeetingView: View {
-  let meeting: Meeting
-  let standup: Standup
-
-  var body: some View {
-    ScrollView {
-      VStack(alignment: .leading) {
-        Divider()
-          .padding(.bottom)
-        Text("Attendees")
-          .font(.headline)
-        ForEach(self.standup.attendees) { attendee in
-          Text(attendee.name)
+    let meeting: Meeting
+    let standup: Standup
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                Divider()
+                    .padding(.bottom)
+                Text("Attendees")
+                    .font(.headline)
+                ForEach(self.standup.attendees) { attendee in
+                    Text(attendee.name)
+                }
+                Text("Transcript")
+                    .font(.headline)
+                    .padding(.top)
+                Text(self.meeting.transcript)
+            }
         }
-        Text("Transcript")
-          .font(.headline)
-          .padding(.top)
-        Text(self.meeting.transcript)
-      }
+        .navigationTitle(
+            Text(self.meeting.date, style: .date)
+        )
+        .padding()
+        .preferredColorScheme(.dark)
     }
-    .navigationTitle(
-      Text(self.meeting.date, style: .date)
-    )
-    .padding()
-  }
 }

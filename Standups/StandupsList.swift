@@ -110,14 +110,14 @@ struct StandupsList: View {
             ) { $model in
                 StandupDetailView(model: model)
             }
-            .navigationDestination(
-                unwrapping: self.$model.destination,
-                case: /StandupsListModel.Destination.detail
-            ) { route in
-//                navigationHandler(route: route.wrappedValue)
-                StandupDetailView(model: .init(standup: .mock))
-            }
+//            .navigationDestination(
+//                unwrapping: self.$model.destination,
+//                case: /StandupsListModel.Destination.detail
+//            ) { route in
+////                navigationHandler(route: route.wrappedValue)
+//            }
         }
+        .preferredColorScheme(.dark)
     }
     
 //    @ViewBuilder
@@ -135,8 +135,8 @@ struct StandupsList_Previews: PreviewProvider {
     static var previews: some View {
         StandupsList(
             model: StandupsListModel(
-                destination: .add(EditStandupModel(
-                    focus: .attendee(Standup.mock.attendees[3].id),
+                destination: .detail(StandupDetailModel(
+                    destination: .meeting(Standup.mock.meetings[0]),
                     standup: .mock
                 )),
                 standups: [
@@ -144,7 +144,6 @@ struct StandupsList_Previews: PreviewProvider {
                 ]
             )
         )
-        .preferredColorScheme(.dark)
     }
 }
 
