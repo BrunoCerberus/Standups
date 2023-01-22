@@ -7,14 +7,25 @@
 
 import SwiftUI
 import SwiftUINavigation
+import XCTestDynamicOverlay
 
 final class StandupDetailModel: ObservableObject {
     enum Destination {
+        case alert(AlertState<AlertAction>)
         case meeting(Meeting)
+    }
+    
+    enum AlertAction {
+        case confirmDeletion
     }
     
     @Published var destination: Destination?
     @Published var standup: Standup
+    
+    // With that, we have a guarantee that this closure will be implemented by its parent,
+    // if not, a purple warning should pop up warning user to implement this closure once
+    // this closure executes.
+    var onConfirmDeletion: () -> Void = unimplemented("StandupDetailModel.onConfirmDeletion")
     
     init(
         destination: Destination? = nil,
@@ -31,6 +42,47 @@ final class StandupDetailModel: ObservableObject {
     func meetingTapped(_ meeting: Meeting) {
         destination = .meeting(meeting)
     }
+    
+    func deleteButtonTapped() {
+        destination = .alert(.delete)
+//        destination = .alert(
+//            AlertState<AlertAction>(
+//                title: TextState("Delete?"),
+//                message: TextState("Are you sure you want to delete this meeting?"),
+//                buttons: [
+//                    .destructive(
+//                        TextState("Yes"),
+//                        action: .send(.confirmDeletion)
+//                    ),
+//                    .cancel(TextState("Nevermind"))
+//                ]
+//            )
+//        )
+    }
+    
+    func alertButtonTapped(_ action: AlertAction) {
+        switch action {
+        case .confirmDeletion:
+            onConfirmDeletion()
+        }
+    }
+}
+
+
+// here we can define a static constant in order to call any
+// AlertState<StandupDetailModel.AlertAction> case easily
+extension AlertState where Action == StandupDetailModel.AlertAction {
+    static let delete = AlertState<Action>(
+        title: TextState("Delete?"),
+        message: TextState("Are you sure you want to delete this meeting?"),
+        buttons: [
+            .destructive(
+                TextState("Yes"),
+                action: .send(.confirmDeletion)
+            ),
+            .cancel(TextState("Nevermind"))
+        ]
+    )
 }
 
 struct StandupDetailView: View {
@@ -100,6 +152,7 @@ struct StandupDetailView: View {
             
             Section {
                 Button("Delete") {
+                    self.model.deleteButtonTapped()
                 }
                 .foregroundColor(.red)
                 .frame(maxWidth: .infinity)
@@ -123,6 +176,13 @@ struct StandupDetailView: View {
                 standup: self.model.standup
             )
         }
+        .alert(
+            unwrapping: self.$model.destination,
+            case: /StandupDetailModel.Destination.alert,
+            // you can omit braces closure definition and parameter
+            // method name.
+            action: self.model.alertButtonTapped
+        )
     }
 }
 

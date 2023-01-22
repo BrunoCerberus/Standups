@@ -13,6 +13,10 @@ struct StandupsApp: App {
         WindowGroup {
             StandupsList(
                 model: StandupsListModel(
+                    destination: .detail(StandupDetailModel(
+                        destination: .alert(.delete),
+                        standup: .mock
+                    )),
                     standups: [
                         .mock,
                     ]
