@@ -17,6 +17,7 @@
 		155BD52C2974FF92007AA173 /* EditStandupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD52B2974FF92007AA173 /* EditStandupView.swift */; };
 		15DF14F1297A0E3C009E3436 /* EditStandupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF14F0297A0E3C009E3436 /* EditStandupTests.swift */; };
 		15DF14F3297A14E4009E3436 /* StandupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF14F2297A14E4009E3436 /* StandupDetail.swift */; };
+		15FB41822982184C004FC2AE /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 15FB41812982184C004FC2AE /* IdentifiedCollections */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15FB41822982184C004FC2AE /* IdentifiedCollections in Frameworks */,
 				155BD52A2974FD43007AA173 /* SwiftUINavigation in Frameworks */,
 				155BD5262974F2C6007AA173 /* Tagged in Frameworks */,
 			);
@@ -123,6 +125,7 @@
 			packageProductDependencies = (
 				155BD5252974F2C6007AA173 /* Tagged */,
 				155BD5292974FD43007AA173 /* SwiftUINavigation */,
+				15FB41812982184C004FC2AE /* IdentifiedCollections */,
 			);
 			productName = Standups;
 			productReference = 155BD4F22974EE3F007AA173 /* Standups.app */;
@@ -177,6 +180,7 @@
 			packageReferences = (
 				155BD5242974F2C6007AA173 /* XCRemoteSwiftPackageReference "swift-tagged" */,
 				155BD5282974FD43007AA173 /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
+				15FB41802982184C004FC2AE /* XCRemoteSwiftPackageReference "swift-identified-collections" */,
 			);
 			productRefGroup = 155BD4F32974EE3F007AA173 /* Products */;
 			projectDirPath = "";
@@ -521,6 +525,14 @@
 				minimumVersion = 0.5.0;
 			};
 		};
+		15FB41802982184C004FC2AE /* XCRemoteSwiftPackageReference "swift-identified-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-identified-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -533,6 +545,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 155BD5282974FD43007AA173 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
 			productName = SwiftUINavigation;
+		};
+		15FB41812982184C004FC2AE /* IdentifiedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15FB41802982184C004FC2AE /* XCRemoteSwiftPackageReference "swift-identified-collections" */;
+			productName = IdentifiedCollections;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

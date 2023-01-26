@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftUINavigation
 import XCTestDynamicOverlay
+import IdentifiedCollections
 
 final class StandupDetailModel: ObservableObject {
     enum Destination {
