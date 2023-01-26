@@ -77,7 +77,7 @@ final class StandupsListModel: ObservableObject {
                 guard let self else { return }
                 
                 withAnimation {
-                    self.standups.removeAll { $0.id == id }
+                    self.standups.remove(id: id)
                     self.destination = nil
                 }
             }
