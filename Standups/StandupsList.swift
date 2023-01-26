@@ -7,6 +7,7 @@
 
 import SwiftUINavigation
 import SwiftUI
+import Combine
 
 final class StandupsListModel: ObservableObject {
     enum Destination {
@@ -19,8 +20,12 @@ final class StandupsListModel: ObservableObject {
 //        case navigate(Specific)
     }
     
-    @Published var destination: Destination?
+    @Published var destination: Destination? {
+        didSet { self.bind() }
+    }
     @Published var standups: [Standup]
+    
+    private var destinationCancellable: AnyCancellable?
     
     init(
         destination: Destination? = nil,
@@ -28,6 +33,7 @@ final class StandupsListModel: ObservableObject {
     ) {
         self.destination = destination
         self.standups = standups
+        self.bind()
     }
     
     func addStandupButtonTapped() {
@@ -61,6 +67,30 @@ final class StandupsListModel: ObservableObject {
         let model = StandupDetailModel(standup: standup)
         self.destination = .detail(model)
 //        self.destination = .navigate(.screenTwo)
+    }
+    
+    private func bind() {
+        switch self.destination {
+        case let .detail(standupDetailModel):
+            standupDetailModel.onConfirmDeletion = { [weak self, id = standupDetailModel.standup.id] in
+                guard let self else { return }
+                
+                withAnimation {
+                    self.standups.removeAll { $0.id == id }
+                    self.destination = nil
+                }
+            }
+            
+            // another way to sync data without closure is using combine
+            self.destinationCancellable = standupDetailModel.$standup
+                .sink { [weak self] standup in
+                    guard let self else { return }
+                    guard let index = self.standups.firstIndex(where: { $0.id == standup.id }) else { return }
+                    self.standups[index] = standup
+                }
+        case .add, .none:
+            break
+        }
     }
 }
 
@@ -135,10 +165,7 @@ struct StandupsList_Previews: PreviewProvider {
     static var previews: some View {
         StandupsList(
             model: StandupsListModel(
-                destination: .detail(StandupDetailModel(
-                    destination: .meeting(Standup.mock.meetings[0]),
-                    standup: .mock
-                )),
+                destination: .add(EditStandupModel(focus: .title, standup: .mock)),
                 standups: [
                     .mock,
                 ]

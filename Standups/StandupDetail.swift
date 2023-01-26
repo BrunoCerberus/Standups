@@ -12,6 +12,7 @@ import XCTestDynamicOverlay
 final class StandupDetailModel: ObservableObject {
     enum Destination {
         case alert(AlertState<AlertAction>)
+        case edit(EditStandupModel)
         case meeting(Meeting)
     }
     
@@ -65,6 +66,20 @@ final class StandupDetailModel: ObservableObject {
         case .confirmDeletion:
             onConfirmDeletion()
         }
+    }
+    
+    func editButtonTapped() {
+        self.destination = .edit(EditStandupModel(standup: standup))
+    }
+    
+    func cancelEditButtonTapped() {
+        self.destination = nil
+    }
+    
+    func doneEditingButtonTapped() {
+        guard case let .edit(model) = self.destination else { return }
+        self.standup = model.standup
+        self.destination = nil
     }
 }
 
@@ -161,6 +176,7 @@ struct StandupDetailView: View {
         .navigationTitle(self.model.standup.title)
         .toolbar {
             Button("Edit") {
+                self.model.editButtonTapped()
             }
         }
         .sheet(
@@ -183,6 +199,27 @@ struct StandupDetailView: View {
             // method name.
             action: self.model.alertButtonTapped
         )
+        .sheet(
+            unwrapping: self.$model.destination,
+            case: /StandupDetailModel.Destination.edit
+        ) { $model in
+            NavigationStack {
+                EditStandupView(model: model)
+                    .navigationTitle(model.standup.title)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") {
+                                self.model.cancelEditButtonTapped()
+                            }
+                        }
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Done") {
+                                self.model.doneEditingButtonTapped()
+                            }
+                        }
+                    }
+            }
+        }
     }
 }
 
