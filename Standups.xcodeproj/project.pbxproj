@@ -18,6 +18,7 @@
 		15DF14F1297A0E3C009E3436 /* EditStandupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF14F0297A0E3C009E3436 /* EditStandupTests.swift */; };
 		15DF14F3297A14E4009E3436 /* StandupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF14F2297A14E4009E3436 /* StandupDetail.swift */; };
 		15FB41822982184C004FC2AE /* IdentifiedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 15FB41812982184C004FC2AE /* IdentifiedCollections */; };
+		15FB418429821A7C004FC2AE /* RecordMeeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FB418329821A7C004FC2AE /* RecordMeeting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		155BD52B2974FF92007AA173 /* EditStandupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStandupView.swift; sourceTree = "<group>"; };
 		15DF14F0297A0E3C009E3436 /* EditStandupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStandupTests.swift; sourceTree = "<group>"; };
 		15DF14F2297A14E4009E3436 /* StandupDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandupDetail.swift; sourceTree = "<group>"; };
+		15FB418329821A7C004FC2AE /* RecordMeeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordMeeting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				155BD52B2974FF92007AA173 /* EditStandupView.swift */,
 				155BD4F92974EE40007AA173 /* Assets.xcassets */,
 				15DF14F2297A14E4009E3436 /* StandupDetail.swift */,
+				15FB418329821A7C004FC2AE /* RecordMeeting.swift */,
 			);
 			path = Standups;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				155BD5232974F1D7007AA173 /* Models.swift in Sources */,
 				155BD4F62974EE3F007AA173 /* StandupsApp.swift in Sources */,
 				155BD5212974F042007AA173 /* StandupsList.swift in Sources */,
+				15FB418429821A7C004FC2AE /* RecordMeeting.swift in Sources */,
 				15DF14F3297A14E4009E3436 /* StandupDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

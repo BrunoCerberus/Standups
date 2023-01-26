@@ -5,14 +5,15 @@
 //  Created by bruno on 15/01/23.
 //
 
+import IdentifiedCollections
 import SwiftUI
 import Tagged
 
 struct Standup: Equatable, Identifiable, Codable {
     let id: Tagged<Self, UUID>
-    var attendees: [Attendee] = []
+    var attendees: IdentifiedArrayOf<Attendee> = []
     var duration = Duration.seconds(60 * 5)
-    var meetings: [Meeting] = []
+    var meetings: IdentifiedArrayOf<Meeting> = []
     var theme: Theme = .bubblegum
     var title = ""
     
