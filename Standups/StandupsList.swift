@@ -8,6 +8,7 @@
 import SwiftUINavigation
 import SwiftUI
 import Combine
+import IdentifiedCollections
 
 final class StandupsListModel: ObservableObject {
     enum Destination {
@@ -23,13 +24,13 @@ final class StandupsListModel: ObservableObject {
     @Published var destination: Destination? {
         didSet { self.bind() }
     }
-    @Published var standups: [Standup]
+    @Published var standups: IdentifiedArrayOf<Standup>
     
     private var destinationCancellable: AnyCancellable?
     
     init(
         destination: Destination? = nil,
-        standups: [Standup] = []
+        standups: IdentifiedArrayOf<Standup> = []
     ) {
         self.destination = destination
         self.standups = standups
@@ -85,8 +86,7 @@ final class StandupsListModel: ObservableObject {
             self.destinationCancellable = standupDetailModel.$standup
                 .sink { [weak self] standup in
                     guard let self else { return }
-                    guard let index = self.standups.firstIndex(where: { $0.id == standup.id }) else { return }
-                    self.standups[index] = standup
+                    self.standups.updateOrAppend(standup)
                 }
         case .add, .none:
             break
