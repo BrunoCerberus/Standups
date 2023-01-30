@@ -6,14 +6,25 @@
 //
 
 import SwiftUI
+import SwiftUINavigation
 import XCTestDynamicOverlay
 
 final class RecordMeetingModel: ObservableObject {
     let standup: Standup
     
+    @Published var destination: Destination?
     @Published var dismiss = false
     @Published var secondsElapsed = 0
     @Published var speakerIndex = 0
+    
+    enum Destination {
+        case alert(AlertState<AlertAction>)
+    }
+    
+    enum AlertAction {
+        case confirmSave
+        case confirmDiscard
+    }
     
     var onMeetingFinished: () -> Void = unimplemented("RecordMeetingModel.onMeetingFinished")
     
@@ -21,7 +32,11 @@ final class RecordMeetingModel: ObservableObject {
         self.standup.duration - .seconds(secondsElapsed)
     }
     
-    init(standup: Standup) {
+    init(
+        destination: Destination? = nil,
+        standup: Standup
+    ) {
+        self.destination = destination
         self.standup = standup
     }
     
@@ -30,8 +45,27 @@ final class RecordMeetingModel: ObservableObject {
     }
     
     func endMeetingButtonTapped() {
+        self.destination = .alert(.endMeeting)
+    }
+    
+    func onConfirmSave() {
         self.onMeetingFinished()
         self.dismiss = true
+    }
+    
+    func onConfirmDiscard() {
+        self.onMeetingFinished()
+        self.dismiss = true
+    }
+    
+    @MainActor
+    func alertButtonTapped(_ action: AlertAction) {
+        switch action {
+        case .confirmSave:
+            onConfirmSave()
+        case .confirmDiscard:
+            onConfirmDiscard()
+        }
     }
     
     @MainActor
@@ -52,6 +86,24 @@ final class RecordMeetingModel: ObservableObject {
             }
         } catch {}
     }
+}
+
+extension AlertState where Action == RecordMeetingModel.AlertAction {
+    static let endMeeting = AlertState<Action>(
+        title: TextState("save?"),
+        message: TextState("Are you sure you want to save this recording?"),
+        buttons: [
+            .default(
+                TextState("Yes"),
+                action: .send(.confirmSave)
+            ),
+            .destructive(
+                TextState("discard"),
+                action: .send(.confirmDiscard)
+            ),
+            .cancel(TextState("Nevermind"))
+        ]
+    )
 }
 
 struct RecordMeetingView: View {
@@ -96,6 +148,13 @@ struct RecordMeetingView: View {
             await self.model.task()
         }
         .onChange(of: self.model.dismiss) { _ in self.dismiss() }
+        .alert(
+            unwrapping: self.$model.destination,
+            case: /RecordMeetingModel.Destination.alert,
+            // you can omit braces closure definition and parameter
+            // method name.
+            action: self.model.alertButtonTapped
+        )
     }
 }
 
