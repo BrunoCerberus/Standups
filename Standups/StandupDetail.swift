@@ -21,7 +21,9 @@ final class StandupDetailModel: ObservableObject {
         case confirmDeletion
     }
     
-    @Published var destination: Destination?
+    @Published var destination: Destination? {
+        didSet { self.bind() }
+    }
     @Published var standup: Standup
     
     // With that, we have a guarantee that this closure will be implemented by its parent,
@@ -35,6 +37,7 @@ final class StandupDetailModel: ObservableObject {
     ) {
         self.destination = destination
         self.standup = standup
+        self.bind()
     }
     
     func deleteMeetings(atOffsets indices: IndexSet) {
@@ -84,7 +87,21 @@ final class StandupDetailModel: ObservableObject {
     }
     
     func startMeetingTapped() {
-        self.destination = .record(RecordMeetingModel())
+        self.destination = .record(RecordMeetingModel(standup: standup))
+    }
+    
+    private func bind() {
+        switch destination {
+        case let .record(model):
+            model.onMeetingFinished = { [weak self] in
+                guard let self else { return }
+                withAnimation {
+                    self.destination = nil
+                }
+            }
+        case .edit, .alert, .meeting, .none:
+            break
+        }
     }
 }
 
