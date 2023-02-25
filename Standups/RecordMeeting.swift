@@ -32,6 +32,15 @@ final class RecordMeetingModel: ObservableObject {
         self.standup.duration - .seconds(secondsElapsed)
     }
     
+    var isAlertOpen: Bool {
+        switch destination {
+        case .alert:
+            return true
+        case .none:
+            return false
+        }
+    }
+    
     init(
         destination: Destination? = nil,
         standup: Standup
@@ -73,6 +82,7 @@ final class RecordMeetingModel: ObservableObject {
         do {
             while true {
                 try await Task.sleep(for: .seconds(1))
+                guard !self.isAlertOpen else { continue }
                 self.secondsElapsed += 1
                 
                 if self.secondsElapsed.isMultiple(of: Int(self.standup.durationPerAttendee.components.seconds)) {
