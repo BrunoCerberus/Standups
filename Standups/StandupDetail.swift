@@ -101,13 +101,16 @@ final class StandupDetailModel: ObservableObject {
                     date: .now,
                     transcript: transcript
                 )
-                self.standup.meetings.insert(
-                    meeting,
-                    at: 0
-                )
-                withAnimation {
-                    self.destination = nil
+                Task {
+                    try? await Task.sleep(for: .seconds(1))
+                    withAnimation {
+                        _ = self.standup.meetings.insert(
+                            meeting,
+                            at: 0
+                        )
+                    }
                 }
+                self.destination = nil
             }
         case .edit, .alert, .meeting, .none:
             break
@@ -263,9 +266,15 @@ struct StandupDetailView: View {
 struct StandupDetail_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
+            var standup: Standup = .mock
+            let _ = standup.duration = .seconds(1)
+            let _ = standup.attendees = [
+                Attendee(id: Attendee.ID(UUID()), name: "Bob")
+            ]
             StandupDetailView(
                 model: StandupDetailModel(
-                    standup: .mock
+//                    destination: .record(RecordMeetingModel(standup: standup)),
+                    standup: standup
                 )
             )
         }
