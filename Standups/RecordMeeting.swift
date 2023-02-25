@@ -94,14 +94,14 @@ extension AlertState where Action == RecordMeetingModel.AlertAction {
         message: TextState("Are you sure you want to save this recording?"),
         buttons: [
             .default(
-                TextState("Yes"),
+                TextState("Save and end"),
                 action: .send(.confirmSave)
             ),
             .destructive(
-                TextState("discard"),
+                TextState("Discard"),
                 action: .send(.confirmDiscard)
             ),
-            .cancel(TextState("Nevermind"))
+            .cancel(TextState("Resume"))
         ]
     )
 }
