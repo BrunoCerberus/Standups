@@ -95,6 +95,12 @@ final class StandupDetailModel: ObservableObject {
         case let .record(model):
             model.onMeetingFinished = { [weak self] in
                 guard let self else { return }
+                let meeting: Meeting = Meeting(
+                    id: Meeting.ID(UUID()),
+                    date: .now,
+                    transcript: ""
+                )
+                self.standup.meetings.append(meeting)
                 withAnimation {
                     self.destination = nil
                 }
