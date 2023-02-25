@@ -50,7 +50,15 @@ final class RecordMeetingModel: ObservableObject {
     }
     
     func nextButtonTapped() {
+        guard self.speakerIndex < self.standup.attendees.count - 1 else {
+//            self.onMeetingFinished()
+//            self.dismiss = true
+            self.destination = .alert(.nextEndMeeting)
+            return
+        }
         
+        self.speakerIndex += 1
+        self.secondsElapsed = self.speakerIndex * Int(self.standup.durationPerAttendee.components.seconds)
     }
     
     func endMeetingButtonTapped() {
@@ -100,8 +108,8 @@ final class RecordMeetingModel: ObservableObject {
 
 extension AlertState where Action == RecordMeetingModel.AlertAction {
     static let endMeeting = AlertState<Action>(
-        title: TextState("save?"),
-        message: TextState("Are you sure you want to save this recording?"),
+        title: TextState("End Meeting?"),
+        message: TextState("You are ending the meeting early. What would you like to do?"),
         buttons: [
             .default(
                 TextState("Save and end"),
@@ -110,6 +118,18 @@ extension AlertState where Action == RecordMeetingModel.AlertAction {
             .destructive(
                 TextState("Discard"),
                 action: .send(.confirmDiscard)
+            ),
+            .cancel(TextState("Resume"))
+        ]
+    )
+    
+    static let nextEndMeeting = AlertState<Action>(
+        title: TextState("End Meeting?"),
+        message: TextState("You are ending the meeting early. What would you like to do?"),
+        buttons: [
+            .default(
+                TextState("Save and end"),
+                action: .send(.confirmSave)
             ),
             .cancel(TextState("Resume"))
         ]
