@@ -101,7 +101,10 @@ final class StandupDetailModel: ObservableObject {
                     date: .now,
                     transcript: transcript
                 )
-                self.standup.meetings.append(meeting)
+                self.standup.meetings.insert(
+                    meeting,
+                    at: 0
+                )
                 withAnimation {
                     self.destination = nil
                 }
