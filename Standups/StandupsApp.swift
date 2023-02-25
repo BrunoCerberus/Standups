@@ -16,10 +16,10 @@ struct StandupsApp: App {
             
             StandupsList(
                 model: StandupsListModel(
-                    destination: .detail(StandupDetailModel(
-                        destination: .record(RecordMeetingModel(standup: standup)),
-                        standup: standup
-                    )),
+//                    destination: .detail(StandupDetailModel(
+//                        destination: .record(RecordMeetingModel(standup: standup)),
+//                        standup: standup
+//                    )),
                     standups: [
                         standup,
                     ]

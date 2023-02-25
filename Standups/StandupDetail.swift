@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftUINavigation
 import XCTestDynamicOverlay
 
+@MainActor
 final class StandupDetailModel: ObservableObject {
     enum Destination {
         case alert(AlertState<AlertAction>)
@@ -93,12 +94,12 @@ final class StandupDetailModel: ObservableObject {
     private func bind() {
         switch destination {
         case let .record(model):
-            model.onMeetingFinished = { [weak self] in
+            model.onMeetingFinished = { [weak self] transcript in
                 guard let self else { return }
                 let meeting: Meeting = Meeting(
                     id: Meeting.ID(UUID()),
                     date: .now,
-                    transcript: ""
+                    transcript: transcript
                 )
                 self.standup.meetings.append(meeting)
                 withAnimation {

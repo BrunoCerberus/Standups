@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1551393C29AA8FD00006F86D /* Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1551393B29AA8FD00006F86D /* Speech.swift */; };
 		155BD4F62974EE3F007AA173 /* StandupsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD4F52974EE3F007AA173 /* StandupsApp.swift */; };
 		155BD4FA2974EE40007AA173 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155BD4F92974EE40007AA173 /* Assets.xcassets */; };
 		155BD5082974EE40007AA173 /* StandupsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BD5072974EE40007AA173 /* StandupsTests.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1551393B29AA8FD00006F86D /* Speech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speech.swift; sourceTree = "<group>"; };
 		155BD4F22974EE3F007AA173 /* Standups.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Standups.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		155BD4F52974EE3F007AA173 /* StandupsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandupsApp.swift; sourceTree = "<group>"; };
 		155BD4F92974EE40007AA173 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				155BD4F92974EE40007AA173 /* Assets.xcassets */,
 				15DF14F2297A14E4009E3436 /* StandupDetail.swift */,
 				15FB418329821A7C004FC2AE /* RecordMeeting.swift */,
+				1551393B29AA8FD00006F86D /* Speech.swift */,
 			);
 			path = Standups;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				155BD52C2974FF92007AA173 /* EditStandupView.swift in Sources */,
 				155BD5232974F1D7007AA173 /* Models.swift in Sources */,
 				155BD4F62974EE3F007AA173 /* StandupsApp.swift in Sources */,
+				1551393C29AA8FD00006F86D /* Speech.swift in Sources */,
 				155BD5212974F042007AA173 /* StandupsList.swift in Sources */,
 				15FB418429821A7C004FC2AE /* RecordMeeting.swift in Sources */,
 				15DF14F3297A14E4009E3436 /* StandupDetail.swift in Sources */,
