@@ -28,13 +28,29 @@ final class StandupsListModel: ObservableObject {
     @Published var standups: IdentifiedArrayOf<Standup>
     
     private var destinationCancellable: AnyCancellable?
+    private var cancellables: Set<AnyCancellable> = []
     
-    init(
-        destination: Destination? = nil,
-        standups: IdentifiedArrayOf<Standup> = []
-    ) {
+    init(destination: Destination? = nil) {
         self.destination = destination
-        self.standups = standups
+        self.standups = []
+        do {
+            self.standups = try JSONDecoder().decode(IdentifiedArray.self, from: Data(contentsOf: .standups))
+        } catch {
+            // TODO: Alert
+        }
+        
+        self.$standups
+            .dropFirst()
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .sink { standups in
+                do {
+                    try JSONEncoder().encode(standups).write(to: .standups)
+                } catch {
+                    // TODO: Alert
+                }
+            }
+            .store(in: &cancellables)
+        
         self.bind()
     }
     
@@ -166,10 +182,10 @@ struct StandupsList_Previews: PreviewProvider {
     static var previews: some View {
         StandupsList(
             model: StandupsListModel(
-                destination: .add(EditStandupModel(focus: .title, standup: .mock)),
-                standups: [
-                    .mock,
-                ]
+                destination: .add(EditStandupModel(focus: .title, standup: .mock))
+//                standups: [
+//                    .mock,
+//                ]
             )
         )
     }
@@ -215,4 +231,8 @@ struct TrailingIconLabelStyle: LabelStyle {
 
 extension LabelStyle where Self == TrailingIconLabelStyle {
     static var trailingIcon: Self { Self() }
+}
+
+extension URL {
+    static let standups = Self.documentsDirectory.appending(component: "standups.json")
 }
