@@ -273,7 +273,7 @@ struct StandupDetail_Previews: PreviewProvider {
             ]
             StandupDetailView(
                 model: StandupDetailModel(
-//                    destination: .record(RecordMeetingModel(standup: standup)),
+                    destination: .record(RecordMeetingModel(standup: standup)),
                     standup: standup
                 )
             )

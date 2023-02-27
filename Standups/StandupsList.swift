@@ -39,6 +39,7 @@ final class StandupsListModel: ObservableObject {
             // TODO: Alert
         }
         
+        // Persists data
         self.$standups
             .dropFirst()
             .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
