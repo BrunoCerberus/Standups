@@ -5,6 +5,7 @@
 //  Created by bruno on 27/02/23.
 //
 
+import Clocks
 import XCTest
 @testable import Standups
 
@@ -13,7 +14,10 @@ final class RecordMeetingTests: XCTestCase {
     func testTimer() async {
         var standup = Standup.mock
         standup.duration = .seconds(6)
-        let recordModel = RecordMeetingModel(standup: standup)
+        let recordModel = RecordMeetingModel(
+            clock: ImmediateClock(),
+            standup: standup
+        )
         let expectation = self.expectation(description: "onMeetingFinished")
         recordModel.onMeetingFinished = { _ in expectation.fulfill() }
         
