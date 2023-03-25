@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Dependencies
 @testable import Standups
 
 @MainActor
@@ -18,18 +19,20 @@ final class StandupListTests: XCTestCase {
         try? fileManager.removeItem(at: .standups)
     }
     
-    func testPersistence() async {
-        let listModel = StandupsListModel()
-        
-        XCTAssertEqual(listModel.standups.count, 0)
-        
-        listModel.addStandupButtonTapped()
-        listModel.confirmAddStandupButtonTapped()
-        XCTAssertEqual(listModel.standups.count, 1)
-        
-        try? await Task.sleep(for: .seconds(1))
-        
-        let nextLaunchListModel = StandupsListModel()
-        XCTAssertEqual(nextLaunchListModel.standups.count, 1)
+    func testPersistence() async throws {
+        let testQueue = DispatchQueue.test
+        withDependencies({ $0.mainQueue = testQueue.eraseToAnyScheduler() }) {
+            let listModel = StandupsListModel()
+            XCTAssertEqual(listModel.standups.count, 0)
+            
+            listModel.addStandupButtonTapped()
+            listModel.confirmAddStandupButtonTapped()
+            XCTAssertEqual(listModel.standups.count, 1)
+            
+            testQueue.advance(by: .seconds(1))
+            
+            let nextLaunchListModel = StandupsListModel()
+            XCTAssertEqual(nextLaunchListModel.standups.count, 1)
+        }
     }
 }

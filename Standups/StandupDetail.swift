@@ -5,6 +5,8 @@
 //  Created by bruno on 19/01/23.
 //
 
+import Clocks
+import Dependencies
 import SwiftUI
 import SwiftUINavigation
 import XCTestDynamicOverlay
@@ -26,6 +28,8 @@ final class StandupDetailModel: ObservableObject {
         didSet { self.bind() }
     }
     @Published var standup: Standup
+    
+    @Dependency(\.continuousClock) var clock
     
     // With that, we have a guarantee that this closure will be implemented by its parent,
     // if not, a purple warning should pop up warning user to implement this closure once
@@ -102,7 +106,7 @@ final class StandupDetailModel: ObservableObject {
                     transcript: transcript
                 )
                 Task {
-                    try? await Task.sleep(for: .seconds(1))
+                    try? await self.clock.sleep(for: .seconds(1))
                     withAnimation {
                         _ = self.standup.meetings.insert(
                             meeting,

@@ -5,6 +5,7 @@
 //  Created by bruno on 15/01/23.
 //
 
+import Dependencies
 import SwiftUINavigation
 import SwiftUI
 import Combine
@@ -30,6 +31,8 @@ final class StandupsListModel: ObservableObject {
     private var destinationCancellable: AnyCancellable?
     private var cancellables: Set<AnyCancellable> = []
     
+    @Dependency(\.mainQueue) var mainQueue
+    
     init(destination: Destination? = nil) {
         self.destination = destination
         self.standups = []
@@ -40,9 +43,11 @@ final class StandupsListModel: ObservableObject {
         }
         
         // Persists data
+        // to any changes made in $standups, it's going to be persisted
+        // disconsidering the first change.
         self.$standups
             .dropFirst()
-            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(1), scheduler: mainQueue)
             .sink { standups in
                 do {
                     try JSONEncoder().encode(standups).write(to: .standups)

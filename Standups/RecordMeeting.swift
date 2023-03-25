@@ -6,6 +6,7 @@
 //
 
 import Clocks
+import Dependencies
 import SwiftUI
 import SwiftUINavigation
 import XCTestDynamicOverlay
@@ -21,7 +22,8 @@ final class RecordMeetingModel: ObservableObject {
     @Published var speakerIndex = 0
     
     private var transcript: String = ""
-    private let clock: any Clock<Duration>
+    
+    @Dependency(\.continuousClock) var clock
     
     enum Destination {
         case alert(AlertState<AlertAction>)
@@ -48,11 +50,9 @@ final class RecordMeetingModel: ObservableObject {
     }
     
     init(
-        clock: any Clock<Duration> = ContinuousClock(),
         destination: Destination? = nil,
         standup: Standup
     ) {
-        self.clock = clock
         self.destination = destination
         self.standup = standup
     }
